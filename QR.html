@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Link to QR</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  --red: #ec3750;
+  --orange: #ff8c37;
+  --yellow: #f1c40f;
+  --green: #33d6a6;
+  --cyan: #5bc0de;
+  --blue: #338eda;
+  --purple: #a633d6;
+  --bg: #f9fafc;
+  --card: #ffffff;
+  --ink: #1f2d3d;
+  --muted: #8492a6;
+  --line: #e0e6ed;
+  --shadow: rgba(0, 0, 0, 0.12);
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #17171d;
+    --card: #252429;
+    --ink: #f9fafc;
+    --muted: #a3acb9;
+    --line: #3a3b44;
+    --shadow: rgba(0, 0, 0, 0.5);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #17171d;
+  --card: #252429;
+  --ink: #f9fafc;
+  --muted: #a3acb9;
+  --line: #3a3b44;
+  --shadow: rgba(0, 0, 0, 0.5);
+  color-scheme: dark;
+}
+html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+*, *::before, *::after { box-sizing: border-box; }
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--ink);
+  font: 600 16px/1.5 "Nunito", system-ui, -apple-system, "Segoe UI", sans-serif;
+  display: flex;
+  justify-content: center;
+  padding: 72px 20px 40px;
+  position: relative;
+}
+.flag {
+  position: absolute;
+  top: 0;
+  left: 24px;
+  width: 96px;
+  height: 56px;
+  background: var(--red);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 72%, 0 100%);
+  height: 64px;
+}
+main { width: 100%; max-width: 440px; }
+h1 {
+  margin: 0 0 8px;
+  font-size: 48px;
+  font-weight: 900;
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+}
+h1 em {
+  font-style: normal;
+  background: linear-gradient(90deg, var(--red), var(--orange));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+p.lede { margin: 0 0 28px; color: var(--muted); font-size: 18px; }
+.card {
+  background: var(--card);
+  border-radius: 18px;
+  box-shadow: 0 4px 12px var(--shadow);
+  overflow: hidden;
+}
+.stripe {
+  height: 8px;
+  background: linear-gradient(90deg, var(--red) 0 14.28%, var(--orange) 0 28.56%, var(--yellow) 0 42.84%, var(--green) 0 57.12%, var(--cyan) 0 71.4%, var(--blue) 0 85.68%, var(--purple) 0);
+}
+.body { padding: 24px; }
+label {
+  display: block;
+  font-size: 13px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+input[type="text"] {
+  width: 100%;
+  font: inherit;
+  font-size: 18px;
+  color: var(--ink);
+  background: var(--bg);
+  border: 2px solid var(--line);
+  border-radius: 12px;
+  padding: 12px 14px;
+  outline: none;
+}
+input[type="text"]::placeholder { color: var(--muted); opacity: 0.8; }
+input[type="text"]:focus { border-color: var(--blue); }
+.swatches { display: flex; gap: 10px; margin: 18px 0 20px; flex-wrap: wrap; }
+.sw {
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border-radius: 50%;
+  border: 3px solid var(--card);
+  box-shadow: 0 0 0 2px var(--line);
+  cursor: pointer;
+  transition: transform 0.12s;
+}
+.sw:hover { transform: scale(1.12); }
+.sw[aria-pressed="true"] { box-shadow: 0 0 0 3px var(--ink); }
+.go {
+  width: 100%;
+  font: inherit;
+  font-size: 18px;
+  font-weight: 900;
+  color: #fff;
+  background: var(--red);
+  border: 0;
+  border-radius: 99px;
+  padding: 13px 20px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(236, 55, 80, 0.35);
+  transition: transform 0.12s, box-shadow 0.12s;
+}
+.go:hover { transform: translateY(-2px); box-shadow: 0 8px 16px rgba(236, 55, 80, 0.4); }
+.go:active { transform: translateY(0); }
+.msg { min-height: 22px; margin: 10px 0 0; font-size: 14px; color: var(--red); font-weight: 800; }
+.frame {
+  margin-top: 8px;
+  aspect-ratio: 1;
+  width: 100%;
+  border-radius: 14px;
+  border: 3px dashed var(--line);
+  display: grid;
+  place-items: center;
+  text-align: center;
+  padding: 16px;
+}
+.frame.filled { border: 0; background: #fff; padding: 0; box-shadow: 0 0 0 3px var(--line); }
+.frame img { display: none; width: 100%; height: 100%; border-radius: 14px; image-rendering: pixelated; }
+.frame.filled img { display: block; }
+.frame span { color: var(--muted); }
+.frame.filled span { display: none; }
+.shown { margin: 14px 0 0; font-size: 14px; color: var(--muted); word-break: break-all; }
+.note { margin: 4px 0 0; font-size: 13px; color: var(--muted); visibility: hidden; }
+.note.on { visibility: visible; }
+footer { margin-top: 24px; text-align: center; font-size: 14px; color: var(--muted); }
+footer b { color: var(--red); font-weight: 800; }
+</style>
+</head>
+<body>
+<div class="flag"></div>
+<main>
+  <h1>Link to <em>QR</em></h1>
+  <p class="lede">Paste a link, pick a color, scan away.</p>
+  <div class="card">
+    <div class="stripe"></div>
+    <div class="body">
+      <form id="f" autocomplete="off">
+        <label for="u">Your link</label>
+        <input id="u" type="text" inputmode="url" placeholder="hackclub.com" spellcheck="false" autocapitalize="off">
+        <div class="swatches" id="sw" role="group" aria-label="Code color"></div>
+        <button class="go" type="submit">Make my QR</button>
+        <p class="msg" id="m" role="status"></p>
+      </form>
+      <div class="frame" id="frame">
+        <span>Your code will pop up here</span>
+        <img id="img" alt="QR code">
+      </div>
+      <p class="shown" id="shown"></p>
+      <p class="note" id="note">Press and hold the code (or right-click) to save it.</p>
+    </div>
+  </div>
+  <footer>Made for <b>Hack Club</b></footer>
+</main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+<script>
+(function () {
+  var form = document.getElementById('f');
+  var input = document.getElementById('u');
+  var msg = document.getElementById('m');
+  var frame = document.getElementById('frame');
+  var img = document.getElementById('img');
+  var note = document.getElementById('note');
+  var shown = document.getElementById('shown');
+  var box = document.getElementById('sw');
+  var colors = [
+    ['Ink', '#1f2d3d'],
+    ['Red', '#ec3750'],
+    ['Blue', '#1f6fbf'],
+    ['Green', '#0d8a67'],
+    ['Purple', '#8a24b8']
+  ];
+  var fg = colors[0][1];
+  var current = '';
+
+  colors.forEach(function (c, i) {
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'sw';
+    b.style.background = c[1];
+    b.setAttribute('aria-label', c[0]);
+    b.setAttribute('aria-pressed', i === 0 ? 'true' : 'false');
+    b.addEventListener('click', function () {
+      fg = c[1];
+      Array.prototype.forEach.call(box.children, function (el) {
+        el.setAttribute('aria-pressed', el === b ? 'true' : 'false');
+      });
+      if (current) show(current);
+    });
+    box.appendChild(b);
+  });
+
+  function clean(v) {
+    v = v.trim();
+    if (!v) return '';
+    if (!/^[a-z][a-z0-9+.\-]*:\/\//i.test(v)) v = 'https://' + v;
+    return v;
+  }
+
+  function render(text) {
+    var qr = qrcode(0, 'M');
+    qr.addData(text);
+    qr.make();
+    var n = qr.getModuleCount();
+    var cell = 12;
+    var pad = 4;
+    var size = (n + pad * 2) * cell;
+    var c = document.createElement('canvas');
+    c.width = size;
+    c.height = size;
+    var g = c.getContext('2d');
+    g.fillStyle = '#ffffff';
+    g.fillRect(0, 0, size, size);
+    g.fillStyle = fg;
+    for (var r = 0; r < n; r++) {
+      for (var k = 0; k < n; k++) {
+        if (qr.isDark(r, k)) g.fillRect((k + pad) * cell, (r + pad) * cell, cell, cell);
+      }
+    }
+    return c.toDataURL('image/png');
+  }
+
+  function show(text) {
+    try {
+      img.src = render(text);
+      frame.classList.add('filled');
+      note.classList.add('on');
+      shown.textContent = text;
+      msg.textContent = '';
+    } catch (err) {
+      current = '';
+      frame.classList.remove('filled');
+      note.classList.remove('on');
+      shown.textContent = '';
+      msg.textContent = 'That link is too long to fit in a code.';
+    }
+  }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    msg.textContent = '';
+    var text = clean(input.value);
+    if (!text) {
+      msg.textContent = 'Type or paste a link first.';
+      input.focus();
+      return;
+    }
+    current = text;
+    show(text);
+  });
+})();
+</script>
+</body>
+</html>
